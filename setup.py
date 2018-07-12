@@ -1,9 +1,9 @@
 from setuptools import setup
 
 setup(
-    name='flowsim',
+    name='maxmin-flowsim',
     version='0.1',
-    packages=[''],
+    packages=['flow_sim'],
     url='',
     license='',
     author='Nikita Borisov',
