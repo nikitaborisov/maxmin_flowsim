@@ -1,11 +1,11 @@
-from typing import Set, List, Any
+from typing import Set, List, Sequence, Collection, Union
 
 from sortedcontainers import SortedList
 
 from math import inf
 
 
-def max_min_bw(circ_list, bw):
+def max_min_bw(circ_list: Sequence[Collection[int]], bw: List[float]) -> List[float]:
     """
     Calculates the bandwidth allocated to each circuit in `circ_list` using the max-min bandwidth allocation.
     :param circ_list: A list of circuits. Each circuit is a list (or set) of relay indices. There are no constraints
@@ -16,14 +16,15 @@ def max_min_bw(circ_list, bw):
 
     num_relays = len(bw)
     # relay_to_circ maps from relay number to a set of circuit (indices) that go through this relay
-    relay_to_circ: List[Set[int]] = [set() for i in range(num_relays)]
+    relay_to_circ: List[Set[int]] = [set() for _ in range(num_relays)]
     for circ_id, circ in enumerate(circ_list):
         for relay_id in circ:
             relay_to_circ[relay_id].add(circ_id)
 
     # initialize allocation to 0
-    bw_alloc = [None for i in range(len(circ_list))]
+    bw_alloc: List[Union[int, None]] = [None for _ in range(len(circ_list))]
 
+    # copy of bandwidth list
     remaining_bw = bw.copy()
 
     bw_array = [[relay_to_circ[i] and remaining_bw[i] / len(relay_to_circ[i]) or inf, i]

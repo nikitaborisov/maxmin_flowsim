@@ -1,4 +1,4 @@
-import max_min
+from flow_sim import max_min
 
 
 def test_empty_circ_list():
